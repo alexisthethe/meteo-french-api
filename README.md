@@ -17,7 +17,7 @@ It must be dockerized and deployed on kubernetes using: `kubectl apply -f my_api
 
 ## Tech Specs
 
-<img src="./doc/meteo-french-api-logo.png" alt="meteo-french-api-logo" width="400"/>
+<img src="./doc/meteo-french-api-logo.png" alt="meteo-french-api-logo" width="200"/>
 
 ### Background
 
@@ -66,26 +66,26 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 
 ### Plan / Milestones
 
-- [] Register for https://developer.accuweather.com/apis and get to know the app with documentation
-- [] Write a AccuWeather API client with the core logics of the _Meteo French API_ in a [Jupyter notebook]()
-- [] Write the API spec with OpenAPI 3.0 standard with [Insomnia](https://insomnia.rest/)
-- [] Generate Python Flask structure from the spec with Insomnia
-- [] Fill the structure with core logics from notebook
-- [] Write unit tests for core logics functions
-- [] Write unit tests for API
-- [] Write `meteo-french-api.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
+- [ ] Register for https://developer.accuweather.com/apis and get to know the app with documentation
+- [ ] Write a AccuWeather API client with the core logics of the _Meteo French API_ in a [Jupyter notebook]()
+- [ ] Write the API spec with OpenAPI 3.0 standard with [Insomnia](https://insomnia.rest/)
+- [ ] Generate Python Flask structure from the spec with Insomnia
+- [ ] Fill the structure with core logics from notebook
+- [ ] Write unit tests for core logics functions
+- [ ] Write unit tests for API
+- [ ] Write `meteo-french-api.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
 
-- [] JWT Authentication implemetation and unit tests
-- [] Deployment in AKS in 1 `test` environment
-- [] Static code analysis for security
-- [] Integrate monitoring features (Sentry, ELK, Prometheus)
+- [ ] JWT Authentication implemetation and unit tests
+- [ ] Deployment in AKS in 1 `test` environment
+- [ ] Static code analysis for security
+- [ ] Integrate monitoring features (Sentry, ELK, Prometheus)
 
-- [] Deployment in `staging`
-- [] End-to-end validation in `staging` with connected watches *(need the API client development to be ready)*
-- [] Load and performance tests in `staging`
-- [] Deployment in `prod` worldwide
-- [] Monitoring during _pilote_ period: The watch software version that include the weather client feature is deployed only on 10% of all the units
-- [] Scale pilote: 10% (2 weeks) => 50% (2 weeks) => 100%
+- [ ] Deployment in `staging`
+- [ ] End-to-end validation in `staging` with connected watches *(need the API client development to be ready)*
+- [ ] Load and performance tests in `staging`
+- [ ] Deployment in `prod` worldwide
+- [ ] Monitoring during _pilote_ period: The watch software version that include the weather client feature is deployed only on 10% of all the units
+- [ ] Scale pilote: 10% (2 weeks) => 50% (2 weeks) => 100%
 
 ### KPI / Monitoring
 
@@ -104,5 +104,5 @@ Kibana board
 
 ### Open Questions
 
-- [] How to store our AccuWeather Token securely ? `.env` files ? [git-secret](https://git-secret.io/)
+- [ ] How to store our AccuWeather Token securely ? `.env` files ? [git-secret](https://git-secret.io/)
 
