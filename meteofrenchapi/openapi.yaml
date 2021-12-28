@@ -1,0 +1,139 @@
+components:
+  schemas:
+    PrecipitationResponse:
+      properties:
+        precipitation:
+          description: Amount of precipitation that has fallen in the past hour in
+            meters.
+          example: 0.001
+          title: Precipitation
+          type: number
+        visibility:
+          description: The current visibility in meters.
+          example: 9700.0
+          title: Visibility
+          type: number
+      type: object
+    UvResponse:
+      properties:
+        uv_index:
+          description: UV index
+          example: 1
+          title: UvIndex
+          type: integer
+      type: object
+    ValidationError:
+      properties:
+        detail:
+          properties:
+            <location>:
+              properties:
+                <field_name>:
+                  items:
+                    type: string
+                  type: array
+              type: object
+          type: object
+        message:
+          type: string
+      type: object
+info:
+  contact:
+    email: alexisthethe@gmail.com
+    name: API Support
+    url: https://alexisthethe.github.io/
+  description: A simple weather API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Meteo French API
+  version: 0.1.0
+openapi: 3.0.3
+paths:
+  /uv:
+    get:
+      description: location defined with latitude and longitude.
+      operationId: getUv
+      parameters:
+      - description: The longitude of the geoposition where to get weather information.
+        in: query
+        name: long
+        required: true
+        schema:
+          example: 2.304897
+          title: Longitude
+          type: number
+      - description: The latitude of the geoposition where to get weather information.
+        in: query
+        name: lat
+        required: true
+        schema:
+          example: 48.870502
+          title: Latitude
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UvResponse'
+          description: Successful response. UV Index information
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: Validation error
+      summary: Return the current UV index for a specific
+      tags:
+      - Weather
+  /precipitation:
+    get:
+      description: 'and Amount of precipitation for a specific
+
+        location defined with latitude and longitude.'
+      operationId: getPrecipitation
+      parameters:
+      - description: The longitude of the geoposition where to get weather information.
+        in: query
+        name: long
+        required: true
+        schema:
+          example: 2.304897
+          title: Longitude
+          type: number
+      - description: The latitude of the geoposition where to get weather information.
+        in: query
+        name: lat
+        required: true
+        schema:
+          example: 48.870502
+          title: Latitude
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrecipitationResponse'
+          description: Successful response. Precipitation information
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: Validation error
+      summary: Returns a json containing the visibility
+      tags:
+      - Weather
+servers:
+- name: Development Server
+  url: http://localhost:5000
+- name: Production Server
+  url: http://api.example.com
+- name: Testing Server
+  url: http://test.example.com
+tags:
+- description: Endpoints for weather information requests
+  name: Weather
+

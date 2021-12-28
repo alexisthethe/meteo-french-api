@@ -1,0 +1,10 @@
+.git/
+.gitignore
+LICENSE
+README.md
+TECHSPECS.md
+Dockerfile
+doc/
+.venv/
+.ipynb_checkpoints/
+__pycache__/

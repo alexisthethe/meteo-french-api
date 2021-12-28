@@ -53,9 +53,9 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 
 - [X] Register for https://developer.accuweather.com/apis and get to know the app with documentation
 - [X] Write a AccuWeather API client with the core logics of the _Meteo French API_ in a [Jupyter notebook](./quick_tests/accuweather-client.ipynb)
-- [ ] Write the API spec with OpenAPI 3.0 standard with [Insomnia](https://insomnia.rest/)
-- [ ] Generate Python Flask structure from the spec with Insomnia
+- [ ] Create the structure of the API with APIFlask
 - [ ] Fill the structure with core logics from notebook
+- [ ] Generate the OpenAPI spec
 - [ ] Write unit tests for core logics functions
 - [ ] Write unit tests for API
 - [ ] Write `meteo-french-api.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
