@@ -18,3 +18,23 @@ It must be dockerized and deployed on kubernetes using: `kubectl apply -f my_api
 ## Tech Specs
 
 Read [Tech Specs](TECHSPECS.md) that document the specification and milestones of the API from development to deployment.
+
+## Run locally
+
+Set environment variables secrets in a `.env.secret` file (check in the [.env.dev](.env.dev) file which ones are to be set)
+
+Build the docker image and run the app locally with
+```
+./run_docker_local.sh
+```
+
+Now you can visit http://localhost:8000/docs to view the Swagger UI of the app (only available in `dev` environment)
+
+## Generate the OpenAPI spec
+
+```
+./run_docker_local.sh flask spec
+```
+
+The result is found at `meteofrenchapi/openapi.yaml`
+
