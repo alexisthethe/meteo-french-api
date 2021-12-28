@@ -37,9 +37,11 @@ Returns a json containing the visibility and Amount of precipitation in the last
 * `/uv?lat={latitude}&long={longitude}`:
 Return current UV index
 
-It must be dockerized and deployed on kubernetes using: `kubectl apply -f my_api.yaml`
+It must be dockerized and deployed on kubernetes using: `kubectl apply -f my_api.yaml`.
 
-This API must be presented on the Jan 4th 2022, and therefore be ready some days before (Dec 30th 2021 deadline)
+The API will be stateless, so we will use functions rather than classes.
+
+This API must be presented on the Jan 4th 2022, and therefore be ready some days before (Dec 30th 2021 deadline).
 
 
 ## Non-goals
@@ -49,8 +51,8 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 
 ## Plan / Milestones
 
-- [ ] Register for https://developer.accuweather.com/apis and get to know the app with documentation
-- [ ] Write a AccuWeather API client with the core logics of the _Meteo French API_ in a [Jupyter notebook]()
+- [X] Register for https://developer.accuweather.com/apis and get to know the app with documentation
+- [X] Write a AccuWeather API client with the core logics of the _Meteo French API_ in a [Jupyter notebook](./quick_tests/accuweather-client.ipynb)
 - [ ] Write the API spec with OpenAPI 3.0 standard with [Insomnia](https://insomnia.rest/)
 - [ ] Generate Python Flask structure from the spec with Insomnia
 - [ ] Fill the structure with core logics from notebook
@@ -89,6 +91,8 @@ Kibana board
 
 * Asynchronous calls to AccuWeather API
 * Approximate latitude and longitude that will have the same weather information, and cache locationKey and weather info to respond faster. For example all `(lat, long)` in the bounding box `[((48.87, 2.30)), ((48.88, 2.31))]` will be approximate to `(48.875, 2.305)` and will be considering having the same location key. This will help a lot because in a city there is a concentration of API clients (watches) which will get the same weather results.
+* Approximation with a boundary box size in meters (because the conversion between latitude or longitude distance and meters distance is not constant, it depends on where you are on earth).
+* parameter in the endpoint get request to choose the unit system (metric or imperial) to let the end user the possibility to set its 
 
 
 ## Open Questions
