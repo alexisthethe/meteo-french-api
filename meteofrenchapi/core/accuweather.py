@@ -6,6 +6,7 @@ from meteofrenchapi import configobj
 # Constants
 GEOPOSITION_EP = "/locations/v1/cities/geoposition/search"
 CURRENTCONDITIONS_EP = "/currentconditions/v1"
+DEC_ROUND = 4
 
 
 def base_get(endpoint, params={}):
@@ -31,21 +32,24 @@ def get_location_key(lat, long):
 def convert_to_m(valueobj):
     valueobj_m = valueobj.get("Metric")
     unit_type = valueobj_m.get("UnitType")
+    value = valueobj_m["Value"]
     # mm
     if unit_type == 3:
-        return valueobj_m["Value"] * 0.001
+        value *= 0.001
     # cm
     elif unit_type == 4:
-        return valueobj_m["Value"] * 0.01
+        value *= 0.01
     # m
     elif unit_type == 5:
-        return valueobj_m["Value"]
+        pass
     # km
     elif unit_type == 6:
-        return valueobj_m["Value"] * 1000
+        value *= 1000
     else:
         print("ERROR: UnitType unknown while converting {} to meters".format(valueobj))
         return None
+    value = round(value, DEC_ROUND)
+    return value
 
 
 def get_current_condition(lat, long):
