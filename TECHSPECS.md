@@ -53,13 +53,14 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 
 - [X] Register for https://developer.accuweather.com/apis and get to know the app with documentation
 - [X] Write a AccuWeather API client with the core logics of the _Meteo French API_ in a [Jupyter notebook](./quick_tests/accuweather-client.ipynb)
-- [ ] Create the structure of the API with APIFlask
-- [ ] Fill the structure with core logics from notebook
-- [ ] Generate the OpenAPI spec
-- [ ] Write unit tests for core logics functions
-- [ ] Write unit tests for API
+- [X] Create the structure of the API with APIFlask
+- [X] Fill the structure with core logics from notebook
+- [X] Generate the OpenAPI spec
+- [X] Write unit tests for core logics functions
+- [X] Write unit tests for API
 - [ ] Write `meteo-french-api.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
 
+- [ ] CI pipeline
 - [ ] JWT Authentication implemetation and unit tests
 - [ ] Deployment in AKS in 1 `test` environment
 - [ ] Static code analysis for security
@@ -71,6 +72,7 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 - [ ] Deployment in `prod` worldwide
 - [ ] Monitoring during _pilote_ period: The watch software version that include the weather client feature is deployed only on 10% of all the units
 - [ ] Scale pilote: 10% (2 weeks) => 50% (2 weeks) => 100%
+- [ ] CD pipeline
 
 ## KPI / Monitoring
 
