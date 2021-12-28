@@ -1,8 +1,6 @@
 import os
 
 
-
-
 class ConfigBase(object):
     """Base configuration."""
 
@@ -38,6 +36,10 @@ class ConfigBase(object):
     SPEC_FORMAT = 'yaml'
     LOCAL_SPEC_PATH = os.path.join(APP_DIR, "openapi.yaml")
 
+    # Accuweather
+    ACCUWEATHER_TOKEN = os.getenv('ACCUWEATHER_TOKEN')
+    ACCUWEATHER_URL = os.getenv('ACCUWEATHER_URL')
+
 
 class ProdConfig(ConfigBase):
     """Production configuration."""
@@ -62,3 +64,14 @@ class TestConfig(ConfigBase):
 
     TESTING = True
     DEBUG = True
+
+
+def get_config():
+    env_config = {
+        "prod": ProdConfig,
+        "staging": StagingConfig,
+        "dev": DevConfig,
+        "test": TestConfig
+    }
+    env = os.getenv("ENV", "prod")
+    return env_config[env]
