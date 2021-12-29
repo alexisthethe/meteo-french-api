@@ -1,5 +1,18 @@
 components:
   schemas:
+    ApiInfoResponse:
+      properties:
+        name:
+          description: The name of the API.
+          example: apiname
+          title: Name
+          type: string
+        version:
+          description: The version of the API.
+          example: 0.0.1
+          title: Version
+          type: string
+      type: object
     PrecipitationResponse:
       properties:
         precipitation:
@@ -50,6 +63,21 @@ info:
   version: 0.1.0
 openapi: 3.0.3
 paths:
+  /:
+    get:
+      operationId: getApiInfo
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInfoResponse'
+          description: Successful response. API info
+      summary: Returns a json containing the generic information about the current
+        API.
+      tags:
+      - Weather
   /uv:
     get:
       description: location defined with latitude and longitude.
@@ -126,13 +154,6 @@ paths:
       summary: Returns a json containing the visibility
       tags:
       - Weather
-servers:
-- name: Development Server
-  url: http://localhost:8000
-- name: Production Server
-  url: http://api.example.com
-- name: Testing Server
-  url: http://test.example.com
 tags:
 - description: Endpoints for weather information requests
   name: Weather

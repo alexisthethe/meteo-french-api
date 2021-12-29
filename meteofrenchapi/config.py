@@ -29,11 +29,6 @@ class ConfigBase(object):
     TAGS = [
         {'name': 'Weather', 'description': 'Endpoints for weather information requests'},
     ]
-    SERVERS = [
-        {'name': 'Development Server', 'url': 'http://localhost:{}'.format(PORT)},
-        {'name': 'Production Server', 'url': 'http://api.example.com'},
-        {'name': 'Testing Server', 'url': 'http://test.example.com'}
-    ]
     SPEC_FORMAT = 'yaml'
     LOCAL_SPEC_PATH = os.path.join(APP_DIR, "openapi.yaml")
 
