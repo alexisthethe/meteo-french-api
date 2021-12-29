@@ -60,6 +60,7 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 - [X] Write unit tests for API
 - [X] Write `mfapi.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
 
+- [ ] package the app in an HELM chart
 - [ ] CI pipeline
 - [ ] JWT Authentication implemetation and unit tests
 - [ ] Deployment in AKS in 1 `test` environment
