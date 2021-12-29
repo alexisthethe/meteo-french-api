@@ -38,3 +38,8 @@ Now you can visit http://localhost:8000/docs to view the Swagger UI of the app (
 
 The result is found at `meteofrenchapi/openapi.yaml`
 
+## Run unit tests
+
+```
+./run_docker_local.sh python -m unittest discover meteofrenchapi
+```
