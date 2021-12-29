@@ -9,13 +9,13 @@ case $ENV in
     ;;
 
   "prod" | "staging")
-    if [ ! -z $WORKERS ]; then
-        args_workers="-w $WORKERS"
+    if [ ! -z $GUNICORN_WORKERS ]; then
+        args_workers="-w $GUNICORN_WORKERS"
     fi
-    gunicorn $args_workers app:app
+    gunicorn $args_workers app:app -b 0.0.0.0:$PORT
     ;;
 
   *)
-    STATEMENTS
+    echo "environment variable ENV=$ENV unknown"
     ;;
 esac

@@ -43,3 +43,43 @@ The result is found at `meteofrenchapi/openapi.yaml`
 ```
 ./run_docker_local.sh python -m unittest discover meteofrenchapi
 ```
+
+## Push docker image to registry
+
+```
+./push_docker.sh <registry/image_name>
+```
+
+## Deploy in minikube
+
+Test `minikube` and `kubectl` are installed
+```
+minikube version
+kubectl version
+```
+
+Create a `mfapi-secret.yaml` file with required secrets with the following template
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mfapi-secret
+type: Opaque
+data:
+  SECRET_KEY: <pass_base64>
+  ACCUWEATHER_TOKEN: <pass_base64>
+```
+
+Note: The base64 encoding password can be generated with the following command : `echo -n "password" | base64`
+
+Apply secret file:
+```
+kubectl apply -f mfapi-secret.yaml
+```
+
+Deploy application:
+```
+kubectl apply -f mfapi.yaml
+```
+
+View the API with the command `minikube service mfapi-service`

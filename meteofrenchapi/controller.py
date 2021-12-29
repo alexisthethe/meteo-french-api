@@ -1,5 +1,5 @@
 from apiflask import Schema, input, output, abort, doc
-from apiflask.fields import Float, Integer
+from apiflask.fields import Float, Integer, String
 from marshmallow.exceptions import ValidationError
 
 from meteofrenchapi.core.accuweather import get_visibility_precipitation, get_uv_index
@@ -27,6 +27,22 @@ class GeolocationParams(Schema):
 
 
 # OUTPUT SCHEMAS
+
+class ApiInfoResponse(Schema):
+    name = String(
+        metadata={
+            'title': 'Name',
+            'description': 'The name of the API.',
+            'example': 'apiname'
+        }
+    )
+    version = String(
+        metadata={
+            'title': 'Version',
+            'description': 'The version of the API.',
+            'example': '0.0.1'
+        }
+    )
 
 class PrecipitationResponse(Schema):
     visibility = Float(
@@ -57,6 +73,19 @@ class UvResponse(Schema):
 # ENDPOINTS
 
 def register_endpoints(app):
+
+    @app.get('/')
+    @doc(tag='Weather', operation_id='getApiInfo')
+    @output(ApiInfoResponse, description='Successful response. API info')
+    def index():
+        """
+        Returns a json containing the generic information about the current API.
+        """
+        response = ApiInfoResponse().load({
+            'name': app.name,
+            'version': app.config['VERSION'],
+        })
+        return response
 
     @app.get('/precipitation')
     @doc(tag='Weather', operation_id='getPrecipitation')

@@ -1,12 +1,9 @@
 import os
 from meteofrenchapi import create_app
 
-
-PORT = os.getenv('PORT')
-HOST = os.getenv('HOST')
-
+PORT = os.getenv("PORT")
 app = create_app()
 
 
 if __name__ == '__main__':
-    app.run(host= HOST, port=PORT)
+    app.run(host="0.0.0.0", port=PORT)

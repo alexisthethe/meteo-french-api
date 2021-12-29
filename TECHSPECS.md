@@ -58,7 +58,7 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 - [X] Generate the OpenAPI spec
 - [X] Write unit tests for core logics functions
 - [X] Write unit tests for API
-- [ ] Write `meteo-french-api.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
+- [X] Write `mfapi.yaml` k8s spec to deploy and test to deploy locally with `minikube`.
 
 - [ ] CI pipeline
 - [ ] JWT Authentication implemetation and unit tests
