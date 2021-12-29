@@ -14,6 +14,15 @@ class AppTestCase(unittest.TestCase):
             "long": LONG_TEST,
         }
 
+    def test_index(self):
+        res = self.client.get("/")
+        assert(res.status_code == 200)
+        data = res.json
+        assert("name" in data)
+        assert(data["name"] == app.name)
+        assert("version" in data)
+        assert(data["version"] == app.config['VERSION'])
+
     def test_get_uv_index(self):
         res = self.client.get("/uv", query_string=self.params_latlong_test)
         assert(res.status_code == 200)
