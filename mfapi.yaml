@@ -4,10 +4,10 @@ metadata:
   name: mfapi-configmap
 data:
   ENV: prod
-  FLASK_APP: meteofrenchapi
-  POD_PORT: 5000
-  GUNICORN_WORKERS: 4
-  ACCUWEATHER_URL: http://dataservice.accuweather.com
+  FLASK_APP: "meteofrenchapi"
+  POD_PORT: "5000"
+  GUNICORN_WORKERS: "4"
+  ACCUWEATHER_URL: "http://dataservice.accuweather.com"
 ---
 apiVersion: apps/v1
 kind: Deployment
