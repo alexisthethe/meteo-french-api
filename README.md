@@ -81,3 +81,5 @@ Deploy application:
 ```
 kubectl apply -f mfapi.yaml
 ```
+
+View the API with the command `minikube service mfapi-service`
