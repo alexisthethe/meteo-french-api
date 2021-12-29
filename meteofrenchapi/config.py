@@ -10,6 +10,7 @@ class ConfigBase(object):
     APP_DIR = os.path.abspath(os.path.dirname(__file__))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     PORT = os.environ.get('PORT', '')
+    DOCS_URL_ENABLE = False
 
     # Environment variables
     ENV = os.getenv('ENV')
@@ -56,12 +57,14 @@ class StagingConfig(ConfigBase):
 class DevConfig(ConfigBase):
     """Development configuration."""
 
+    DOCS_URL_ENABLE = True
     DEBUG = True
 
 
 class TestConfig(ConfigBase):
     """Staging configuration."""
 
+    DOCS_URL_ENABLE = True
     TESTING = True
     DEBUG = True
 
