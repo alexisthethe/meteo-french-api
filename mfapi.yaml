@@ -16,7 +16,6 @@ metadata:
   labels:
     app: meteofrenchapi
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: meteofrenchapi
@@ -31,6 +30,13 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
+        resources:
+          requests:
+            memory: 100Mi
+            cpu: 200m
+          limits:
+            memory: 1000Mi
+            cpu: 2000m
         env:
         - name: ENV
           valueFrom:
@@ -81,3 +87,16 @@ spec:
       port: 8000
       targetPort: 5000
       nodePort: 30000
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: mfapi-hpa
+spec:
+  maxReplicas: 5
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: mfapi-depl
+  targetCPUUtilizationPercentage: 95
