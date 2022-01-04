@@ -82,4 +82,8 @@ Deploy application:
 kubectl apply -f mfapi.yaml
 ```
 
-View the API with the command `minikube service mfapi-service`
+View the API with the command `minikube service mfapi-service`.
+
+Test the endpoints:
+* `/precipitation?lat=48.870502&long=2.304897`
+* `/uv?lat=48.870502&long=2.304897`
