@@ -64,6 +64,7 @@ This API must be presented on the Jan 4th 2022, and therefore be ready some days
 - [ ] CI pipeline
 - [ ] JWT Authentication implemetation and unit tests
 - [ ] Deployment in AKS in 1 `test` environment
+- [ ] Configure an Autoscaler
 - [ ] Static code analysis for security
 - [ ] Integrate monitoring features (Sentry, ELK, Prometheus)
 
