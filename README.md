@@ -83,3 +83,10 @@ kubectl apply -f mfapi.yaml
 ```
 
 View the API with the command `minikube service mfapi-service`
+
+Create requests :
+```
+# change port
+service=http://127.0.0.1:61109
+while true; do time curl $service; done
+```

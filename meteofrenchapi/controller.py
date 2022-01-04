@@ -1,6 +1,7 @@
 from apiflask import Schema, input, output, abort, doc
 from apiflask.fields import Float, Integer, String
 from marshmallow.exceptions import ValidationError
+from random import randint
 
 from meteofrenchapi.core.accuweather import get_visibility_precipitation, get_uv_index
 
@@ -81,8 +82,11 @@ def register_endpoints(app):
         """
         Returns a json containing the generic information about the current API.
         """
+        count = 0
+        for _ in range(40000):
+            count += 2 ** randint(0, 2000)
         response = ApiInfoResponse().load({
-            'name': app.name,
+            'name': str(count),
             'version': app.config['VERSION'],
         })
         return response

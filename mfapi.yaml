@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: meteo-french-api
-        image: alexisthethe/meteo-french-api:0.1.0
+        image: alexisthethe/meteo-french-api:test-autoscale
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
