@@ -38,6 +38,12 @@ Now you can visit http://localhost:8000/docs to view the Swagger UI of the app (
 
 The result is found at [meteofrenchapi/openapi.yaml](./meteofrenchapi/openapi.yaml)
 
+## Run Pylint on 
+
+```
+python3 -m pylint meteofrenchapi *.py
+```
+
 ## Run unit tests
 
 ```

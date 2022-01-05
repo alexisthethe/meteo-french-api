@@ -1,7 +1,11 @@
+"""Configs"""
+
 import os
+from dataclasses import dataclass
 
 
-class ConfigBase(object):
+@dataclass
+class ConfigBase():
     """Base configuration."""
 
     # General
@@ -37,18 +41,21 @@ class ConfigBase(object):
     ACCUWEATHER_URL = os.getenv('ACCUWEATHER_URL')
 
 
+@dataclass
 class ProdConfig(ConfigBase):
     """Production configuration."""
 
     DEBUG = False
 
 
+@dataclass
 class StagingConfig(ConfigBase):
     """Staging configuration."""
 
     DEBUG = False
 
 
+@dataclass
 class DevConfig(ConfigBase):
     """Development configuration."""
 
@@ -56,6 +63,7 @@ class DevConfig(ConfigBase):
     DEBUG = True
 
 
+@dataclass
 class TestConfig(ConfigBase):
     """Staging configuration."""
 

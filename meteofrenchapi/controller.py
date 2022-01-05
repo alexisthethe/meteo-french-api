@@ -1,3 +1,5 @@
+"""Controllers for endpoints of the API"""
+
 from apiflask import APIFlask, Schema, input, output, abort, doc
 from apiflask.fields import Float, Integer, String
 from marshmallow.exceptions import ValidationError
@@ -10,6 +12,9 @@ from meteofrenchapi.core.accuweather import get_visibility_precipitation, get_uv
 # INPUTS SCHEMAS
 
 class GeolocationParams(Schema):
+    """
+    Schema for Geolocation params
+    """
     lat = Float(
         required=True,
         metadata={
@@ -31,6 +36,9 @@ class GeolocationParams(Schema):
 # OUTPUT SCHEMAS
 
 class ApiInfoResponse(Schema):
+    """
+    Schema for index response
+    """
     name = String(
         metadata={
             'title': 'Name',
@@ -47,6 +55,9 @@ class ApiInfoResponse(Schema):
     )
 
 class PrecipitationResponse(Schema):
+    """
+    Schema for precipitation response
+    """
     visibility = Float(
         metadata={
             'title': 'Visibility',
@@ -63,6 +74,9 @@ class PrecipitationResponse(Schema):
     )
 
 class UvResponse(Schema):
+    """
+    Schema for uv response
+    """
     uv_index = Integer(
         metadata={
             'title': 'UvIndex',
@@ -75,6 +89,9 @@ class UvResponse(Schema):
 # ENDPOINTS
 
 def register_endpoints(app: APIFlask) -> None:
+    """
+    function to register endpoints into the given app
+    """
 
     @app.get('/')
     @doc(tag='Weather', operation_id='getApiInfo')
@@ -100,7 +117,9 @@ def register_endpoints(app: APIFlask) -> None:
         location defined with latitude and longitude.
         """
         try:
-            visibility, precipitation = get_visibility_precipitation(geolocation['lat'], geolocation['long'])
+            visibility, precipitation = get_visibility_precipitation(
+                geolocation['lat'], geolocation['long']
+            )
             response = PrecipitationResponse().load({
                 'visibility': visibility,
                 'precipitation': precipitation,

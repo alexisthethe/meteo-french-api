@@ -1,6 +1,9 @@
-import requests
+"""Logic functions for to get Accuweather data"""
+
 from json.decoder import JSONDecodeError
 from typing import Tuple
+
+import requests
 
 from meteofrenchapi import configobj
 
@@ -16,7 +19,6 @@ class AwException(Exception):
     """
     Base class for Accuweather exceptions
     """
-    pass
 
 class AwRequestError(AwException):
     """
@@ -28,10 +30,12 @@ class AwRequestError(AwException):
 
 # Functions
 
-def base_get(endpoint: str, params: dict={}) -> requests.Response:
+def base_get(endpoint: str, params: dict=None) -> requests.Response:
     """
     Base function for calls to Accuweather API
     """
+    if params is None:
+        params = {}
     url = configobj.ACCUWEATHER_URL + endpoint
     params["apikey"] = configobj.ACCUWEATHER_TOKEN
     res = requests.get(url, params=params)
@@ -46,8 +50,8 @@ def get_json(res: requests.Response) -> dict:
     """
     try:
         return res.json()
-    except JSONDecodeError:
-        raise AwException(f"could not get JSON from Accuweather response {res.text}")
+    except JSONDecodeError as err:
+        raise AwException(f"could not get JSON from Accuweather response {res.text}") from err
 
 
 def get_data(data: dict, key: str):
@@ -56,15 +60,15 @@ def get_data(data: dict, key: str):
     """
     try:
         return data[key]
-    except KeyError:
-        raise AwException(f"{key} not found")
+    except KeyError as err:
+        raise AwException(f"{key} not found") from err
 
 
 def get_location_key(lat: float, long: float) -> str:
     """
     Retrieve locationKey with Accuweather API
     """
-    params = {"q": "{},{}".format(lat, long)}
+    params = {"q": f"{lat},{long}"}
     res = base_get(GEOPOSITION_EP, params)
     data = get_json(res)
     return get_data(data, "Key")
@@ -104,14 +108,14 @@ def get_current_condition(lat: float, long: float) -> dict:
     params = {"details": True}
     res = base_get(endpoint, params)
     data = get_json(res)
-    if not len(data):
+    if not data:
         raise AwException("data current_condition is empty")
     return data[0]
 
 
 def get_uv_index(lat: float, long: float) -> int:
     """
-    get UV index at geoposition (lat, long) from Accuweather API 
+    get UV index at geoposition (lat, long) from Accuweather API
     """
     data = get_current_condition(lat, long)
     return get_data(data, "UVIndex")
@@ -119,7 +123,7 @@ def get_uv_index(lat: float, long: float) -> int:
 
 def get_visibility_precipitation(lat: float, long: float) -> Tuple[float, float]:
     """
-    get visibility and precipitation in meters at geoposition (lat, long) from Accuweather API 
+    get visibility and precipitation in meters at geoposition (lat, long) from Accuweather API
     """
     data = get_current_condition(lat, long)
     visibility = get_data(data, "Visibility")

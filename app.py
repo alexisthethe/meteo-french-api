@@ -1,3 +1,5 @@
+"""entrypoint to initiate and run Flask app"""
+
 import os
 from meteofrenchapi import create_app
 
