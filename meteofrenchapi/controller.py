@@ -2,7 +2,7 @@ from apiflask import Schema, input, output, abort, doc
 from apiflask.fields import Float, Integer, String
 from marshmallow.exceptions import ValidationError
 
-from meteofrenchapi.core.accuweather import get_visibility_precipitation, get_uv_index
+from meteofrenchapi.core.accuweather import get_visibility_precipitation, get_uv_index, AwException
 
 
 # INPUTS SCHEMAS
@@ -97,16 +97,13 @@ def register_endpoints(app):
         and Amount of precipitation for a specific
         location defined with latitude and longitude.
         """
-        visibility, precipitation = get_visibility_precipitation(geolocation['lat'], geolocation['long'])
-        if visibility is None or precipitation is None:
-            print("ERROR: could not get visibility or precipitation")
-            abort(500)
         try:
+            visibility, precipitation = get_visibility_precipitation(geolocation['lat'], geolocation['long'])
             response = PrecipitationResponse().load({
                 'visibility': visibility,
                 'precipitation': precipitation,
             })
-        except ValidationError as err:
+        except (AwException, ValidationError) as err:
             print(err.messages)
             print(err.valid_data)
             abort(500)
@@ -121,11 +118,13 @@ def register_endpoints(app):
         Return the current UV index for a specific
         location defined with latitude and longitude.
         """
-        uv_index = get_uv_index(geolocation['lat'], geolocation['long'])
-        if uv_index is None:
-            print("ERROR: could not get uv_index")
+        try:
+            uv_index = get_uv_index(geolocation['lat'], geolocation['long'])
+            response = UvResponse().load({
+                'uv_index': uv_index,
+            })
+        except (AwException, ValidationError) as err:
+            print(err.messages)
+            print(err.valid_data)
             abort(500)
-        response = UvResponse().load({
-            'uv_index': uv_index,
-        })
         return response
