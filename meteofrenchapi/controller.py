@@ -11,6 +11,7 @@ from meteofrenchapi.core.accuweather import (
     get_uv_index,
     AwException,
 )
+from meteofrenchapi import logger
 
 
 # INPUTS SCHEMAS
@@ -141,8 +142,8 @@ def register_endpoints(app: APIFlask) -> None:
                 }
             )
         except (AwException, ValidationError) as err:
-            print(err.messages)
-            print(err.valid_data)
+            logger.error(err.messages)
+            logger.error(err.valid_data)
             abort(500)
         return response
 
@@ -163,7 +164,7 @@ def register_endpoints(app: APIFlask) -> None:
                 }
             )
         except (AwException, ValidationError) as err:
-            print(err.messages)
-            print(err.valid_data)
+            logger.error(err.messages)
+            logger.error(err.valid_data)
             abort(500)
         return response

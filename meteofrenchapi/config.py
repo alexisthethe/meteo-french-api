@@ -36,6 +36,10 @@ class ConfigBase:
     SPEC_FORMAT = "yaml"
     LOCAL_SPEC_PATH = os.path.join(APP_DIR, "openapi.yaml")
 
+    # Logging
+    LOGGING_LEVEL = os.getenv("LOGGING_LEVEL", "WARNING")
+    LOGGING_FILE = os.getenv("LOGGING_FILE", None)
+
     # Accuweather
     ACCUWEATHER_TOKEN = os.getenv("ACCUWEATHER_TOKEN")
     ACCUWEATHER_URL = os.getenv("ACCUWEATHER_URL")
