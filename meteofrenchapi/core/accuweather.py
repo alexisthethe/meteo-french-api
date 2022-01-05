@@ -20,17 +20,22 @@ class AwException(Exception):
     Base class for Accuweather exceptions
     """
 
+
 class AwRequestError(AwException):
     """
     Exception when error a request to Accuweather API failed
     """
+
     def __init__(self, url, res):
-        super().__init__(f"request failure {url} (err={res.status_code}, msg={res.text})")
+        super().__init__(
+            f"request failure {url} (err={res.status_code}, msg={res.text})"
+        )
 
 
 # Functions
 
-def base_get(endpoint: str, params: dict=None) -> requests.Response:
+
+def base_get(endpoint: str, params: dict = None) -> requests.Response:
     """
     Base function for calls to Accuweather API
     """
@@ -51,7 +56,9 @@ def get_json(res: requests.Response) -> dict:
     try:
         return res.json()
     except JSONDecodeError as err:
-        raise AwException(f"could not get JSON from Accuweather response {res.text}") from err
+        raise AwException(
+            f"could not get JSON from Accuweather response {res.text}"
+        ) from err
 
 
 def get_data(data: dict, key: str):

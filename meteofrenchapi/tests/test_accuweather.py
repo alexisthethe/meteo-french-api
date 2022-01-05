@@ -35,29 +35,29 @@ class TestAccuweather(unittest.TestCase):
         """
         # test convertion from mm
         valueobj = {
-            'Metric': {'Value': 2.1, 'Unit': 'mm', 'UnitType': 3},
-            'Imperial': {'Value': 0.0, 'Unit': 'in', 'UnitType': 1}
+            "Metric": {"Value": 2.1, "Unit": "mm", "UnitType": 3},
+            "Imperial": {"Value": 0.0, "Unit": "in", "UnitType": 1},
         }
         value = accuweather.convert_to_m(valueobj)
         self.assertEqual(value, 0.0021)
         # test convertion from cm
         valueobj = {
-            'Metric': {'Value': 2.1, 'Unit': 'cm', 'UnitType': 4},
-            'Imperial': {'Value': 0.0, 'Unit': 'in', 'UnitType': 1}
+            "Metric": {"Value": 2.1, "Unit": "cm", "UnitType": 4},
+            "Imperial": {"Value": 0.0, "Unit": "in", "UnitType": 1},
         }
         value = accuweather.convert_to_m(valueobj)
         self.assertEqual(value, 0.021)
         # test convertion from m
         valueobj = {
-            'Metric': {'Value': 2.1, 'Unit': 'm', 'UnitType': 5},
-            'Imperial': {'Value': 0.0, 'Unit': 'in', 'UnitType': 1}
+            "Metric": {"Value": 2.1, "Unit": "m", "UnitType": 5},
+            "Imperial": {"Value": 0.0, "Unit": "in", "UnitType": 1},
         }
         value = accuweather.convert_to_m(valueobj)
         self.assertEqual(value, 2.1)
         # test convertion from km
         valueobj = {
-            'Metric': {'Value': 2.1, 'Unit': 'km', 'UnitType': 6},
-            'Imperial': {'Value': 0.0, 'Unit': 'in', 'UnitType': 1}
+            "Metric": {"Value": 2.1, "Unit": "km", "UnitType": 6},
+            "Imperial": {"Value": 0.0, "Unit": "in", "UnitType": 1},
         }
         value = accuweather.convert_to_m(valueobj)
         self.assertEqual(value, 2100)
@@ -83,6 +83,8 @@ class TestAccuweather(unittest.TestCase):
         """
         test get_visibility_precipitation function
         """
-        visibility, precipitation = accuweather.get_visibility_precipitation(LAT_TEST, LONG_TEST)
+        visibility, precipitation = accuweather.get_visibility_precipitation(
+            LAT_TEST, LONG_TEST
+        )
         self.assertIsInstance(visibility, float)
         self.assertIsInstance(precipitation, float)

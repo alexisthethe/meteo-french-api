@@ -32,7 +32,7 @@ class AppTestCase(unittest.TestCase):
         self.assertIn("name", data)
         self.assertEqual(data["name"], app.name)
         self.assertIn("version", data)
-        self.assertEqual(data["version"], app.config['VERSION'])
+        self.assertEqual(data["version"], app.config["VERSION"])
 
     def test_get_uv_index(self) -> None:
         """
