@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "meteo-french-api"
+version = "0.1.0"
+description = "A simple weather API"
+
+license = "MIT"
+
+authors = [
+    "Alexis Théallier <alexisthethe@gmail.com>"
+]
+
+readme = 'README.md'  # Markdown files are supported
+
+repository = "https://github.com/alexisthethe/meteo-french-api"
+homepage = "https://github.com/alexisthethe/meteo-french-api"
+
+[tool.poetry.dependencies]
+python = "^3.8"  # Compatible python versions must be declared here
+toml = "^0.9"
+requests = "^2.26.0"
+Flask = "^2.0.2"
+APIFlask = {extras = ["yaml"], version = "^0.11.0"}
+gunicorn = "^20.1.0"
+
+[tool.poetry.dev-dependencies]
+coverage = "^6.2"
+black = "^21.12b0"
+pytest = "^6.2.5"
+
+[tool.poetry.scripts]
+run = './run.sh'

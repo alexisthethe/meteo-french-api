@@ -6,7 +6,7 @@ LOCAL_PORT=8000
 SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
 CMD=$@  # to execute another command rather than running the app (ex: '/bin/sh' to investigate or test)
 
-docker build -t meteofrenchapi:dev $SCRIPT_DIR
+docker build -t meteofrenchapi:dev $SCRIPT_DIR --build-arg dev=true
 echo ""
 echo "Binding on local port $LOCAL_PORT => visit http://localhost:$LOCAL_PORT"
 echo ""

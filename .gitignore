@@ -3,3 +3,6 @@
 .env.secret
 __pycache__/
 *secret.yaml
+poetry.lock
+.coverage
+requirements.txt

@@ -47,7 +47,8 @@ python3 -m pylint meteofrenchapi *.py
 ## Run unit tests
 
 ```
-./run_docker_local.sh python -m unittest discover meteofrenchapi
+./run_docker_local.sh coverage run -m unittest discover meteofrenchapi
+./run_docker_local.sh coverage report -m
 ```
 
 ## Push docker image to registry
