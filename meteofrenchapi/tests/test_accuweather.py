@@ -6,7 +6,7 @@ from meteofrenchapi.tests import LAT_TEST, LONG_TEST
 
 class TestAccuweather(unittest.TestCase):
 
-    def test_base_get(self):
+    def test_base_get(self) -> None:
         test_endpoint = "/locations/v1/regions"
         res = accuweather.base_get(test_endpoint)
         assert(res.ok)
@@ -14,11 +14,11 @@ class TestAccuweather(unittest.TestCase):
         res = accuweather.base_get(test_endpoint, params)
         assert(res.ok)
 
-    def test_get_location_key(self):
+    def test_get_location_key(self) -> None:
         location_key = accuweather.get_location_key(LAT_TEST, LONG_TEST)
         assert(location_key == "2608429")
 
-    def test_convert_to_m(self):
+    def test_convert_to_m(self) -> None:
         # test convertion from mm
         valueobj = {'Metric': {'Value': 2.1, 'Unit': 'mm', 'UnitType': 3}, 'Imperial': {'Value': 0.0, 'Unit': 'in', 'UnitType': 1}}
         value = accuweather.convert_to_m(valueobj)
@@ -36,18 +36,18 @@ class TestAccuweather(unittest.TestCase):
         value = accuweather.convert_to_m(valueobj)
         assert(value == 2100)
 
-    def test_get_current_condition(self):
+    def test_get_current_condition(self) -> None:
         data = accuweather.get_current_condition(LAT_TEST, LONG_TEST)
         keys = data.keys()
         assert("UVIndex" in keys)
         assert("Visibility" in keys)
         assert("Precip1hr" in keys)
 
-    def test_get_uv_index(self):
+    def test_get_uv_index(self) -> None:
         uv_index = accuweather.get_uv_index(LAT_TEST, LONG_TEST)
         assert(type(uv_index) == int)
 
-    def test_get_visibility_precipitation(self):
+    def test_get_visibility_precipitation(self) -> None:
         visibility, precipitation = accuweather.get_visibility_precipitation(LAT_TEST, LONG_TEST)
         assert(type(visibility) == float)
         assert(type(precipitation) == float)

@@ -1,6 +1,8 @@
-from apiflask import Schema, input, output, abort, doc
+from apiflask import APIFlask, Schema, input, output, abort, doc
 from apiflask.fields import Float, Integer, String
 from marshmallow.exceptions import ValidationError
+from werkzeug.wrappers import Response as FlaskResponse
+
 
 from meteofrenchapi.core.accuweather import get_visibility_precipitation, get_uv_index, AwException
 
@@ -72,12 +74,12 @@ class UvResponse(Schema):
 
 # ENDPOINTS
 
-def register_endpoints(app):
+def register_endpoints(app: APIFlask) -> None:
 
     @app.get('/')
     @doc(tag='Weather', operation_id='getApiInfo')
     @output(ApiInfoResponse, description='Successful response. API info')
-    def index():
+    def index() -> FlaskResponse:
         """
         Returns a json containing the generic information about the current API.
         """
@@ -91,7 +93,7 @@ def register_endpoints(app):
     @doc(tag='Weather', operation_id='getPrecipitation')
     @input(GeolocationParams, location='query')
     @output(PrecipitationResponse, description='Successful response. Precipitation information')
-    def get_precipitation(geolocation):
+    def get_precipitation(geolocation: GeolocationParams) -> FlaskResponse:
         """
         Returns a json containing the visibility
         and Amount of precipitation for a specific
@@ -113,7 +115,7 @@ def register_endpoints(app):
     @doc(tag='Weather', operation_id='getUv')
     @input(GeolocationParams, location='query')
     @output(UvResponse, description='Successful response. UV Index information')
-    def get_uv(geolocation):
+    def get_uv(geolocation: GeolocationParams) -> FlaskResponse:
         """
         Return the current UV index for a specific
         location defined with latitude and longitude.

@@ -6,7 +6,7 @@ configobj = get_config()
 from .controller import register_endpoints
 
 
-def create_app():
+def create_app() -> APIFlask:
     kwargs={}
     if not configobj.DOCS_URL_ENABLE:
         kwargs.update(dict(docs_path=None, redoc_path=None))

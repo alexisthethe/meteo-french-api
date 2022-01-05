@@ -7,14 +7,14 @@ app = create_app()
 
 class AppTestCase(unittest.TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.client = app.test_client()
         self.params_latlong_test = {
             "lat": LAT_TEST,
             "long": LONG_TEST,
         }
 
-    def test_index(self):
+    def test_index(self) -> None:
         res = self.client.get("/")
         assert(res.status_code == 200)
         data = res.json
@@ -23,14 +23,14 @@ class AppTestCase(unittest.TestCase):
         assert("version" in data)
         assert(data["version"] == app.config['VERSION'])
 
-    def test_get_uv_index(self):
+    def test_get_uv_index(self) -> None:
         res = self.client.get("/uv", query_string=self.params_latlong_test)
         assert(res.status_code == 200)
         data = res.json
         assert("uv_index" in data)
         assert(type(data["uv_index"]) == int)
 
-    def test_get_precipitation(self):
+    def test_get_precipitation(self) -> None:
         res = self.client.get("/precipitation", query_string=self.params_latlong_test)
         assert(res.status_code == 200)
         data = res.json

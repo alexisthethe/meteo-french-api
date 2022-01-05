@@ -64,7 +64,10 @@ class TestConfig(ConfigBase):
     DEBUG = True
 
 
-def get_config():
+def get_config() -> ConfigBase:
+    """
+    Get config object from environment variable ENV
+    """
     env_config = {
         "prod": ProdConfig,
         "staging": StagingConfig,

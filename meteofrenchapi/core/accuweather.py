@@ -1,7 +1,9 @@
 import requests
 from json.decoder import JSONDecodeError
+from typing import Tuple
 
 from meteofrenchapi import configobj
+
 
 # Constants
 GEOPOSITION_EP = "/locations/v1/cities/geoposition/search"
@@ -26,7 +28,7 @@ class AwRequestError(AwException):
 
 # Functions
 
-def base_get(endpoint, params={}):
+def base_get(endpoint: str, params: dict={}) -> requests.Response:
     """
     Base function for calls to Accuweather API
     """
@@ -38,7 +40,7 @@ def base_get(endpoint, params={}):
     return res
 
 
-def get_json(res):
+def get_json(res: requests.Response) -> dict:
     """
     Base function to get JSON data from Accuweather response or raise AwException
     """
@@ -48,7 +50,7 @@ def get_json(res):
         raise AwException(f"could not get JSON from Accuweather response {res.text}")
 
 
-def get_data(data, key):
+def get_data(data: dict, key: str):
     """
     Base function to get value from data from key or raise AwException
     """
@@ -58,7 +60,7 @@ def get_data(data, key):
         raise AwException(f"{key} not found")
 
 
-def get_location_key(lat, long):
+def get_location_key(lat: float, long: float) -> str:
     """
     Retrieve locationKey with Accuweather API
     """
@@ -68,7 +70,7 @@ def get_location_key(lat, long):
     return get_data(data, "Key")
 
 
-def convert_to_m(valueobj):
+def convert_to_m(valueobj: dict) -> float:
     """
     Function to convert value object got from Accuweather in meter
     """
@@ -93,7 +95,7 @@ def convert_to_m(valueobj):
     return value
 
 
-def get_current_condition(lat, long):
+def get_current_condition(lat: float, long: float) -> dict:
     """
     Retrieve current conditions data according to latitude and longitude
     """
@@ -107,7 +109,7 @@ def get_current_condition(lat, long):
     return data[0]
 
 
-def get_uv_index(lat, long):
+def get_uv_index(lat: float, long: float) -> int:
     """
     get UV index at geoposition (lat, long) from Accuweather API 
     """
@@ -115,7 +117,7 @@ def get_uv_index(lat, long):
     return get_data(data, "UVIndex")
 
 
-def get_visibility_precipitation(lat, long):
+def get_visibility_precipitation(lat: float, long: float) -> Tuple[float, float]:
     """
     get visibility and precipitation in meters at geoposition (lat, long) from Accuweather API 
     """
