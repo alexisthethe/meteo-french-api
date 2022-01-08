@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mfapi-configmap
+data:
+  ENV: prod
+  FLASK_APP: "meteofrenchapi"
+  POD_PORT: "5000"
+  GUNICORN_WORKERS: "4"
+  ACCWEA_URL: "TO_FILL_WITH_ACCWEA_BASE_URL"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mfapi-depl
+  labels:
+    app: meteofrenchapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: meteofrenchapi
+  template:
+    metadata:
+      labels:
+        app: meteofrenchapi
+    spec:
+      containers:
+      - name: meteo-french-api
+        image: alexisthethe/meteo-french-api:0.1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        env:
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: mfapi-configmap
+              key: ENV
+        - name: FLASK_APP
+          valueFrom:
+            configMapKeyRef:
+              name: mfapi-configmap
+              key: FLASK_APP
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: mfapi-configmap
+              key: POD_PORT
+        - name: GUNICORN_WORKERS
+          valueFrom:
+            configMapKeyRef:
+              name: mfapi-configmap
+              key: GUNICORN_WORKERS
+        - name: ACCWEA_URL
+          valueFrom:
+            configMapKeyRef:
+              name: mfapi-configmap
+              key: ACCWEA_URL
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: mfapi-secret
+              key: SECRET_KEY
+        - name: ACCWEA_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: mfapi-secret
+              key: ACCWEA_TOKEN
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mfapi-service
+spec:
+  selector:
+    app: meteofrenchapi
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 5000
+      nodePort: 30000
