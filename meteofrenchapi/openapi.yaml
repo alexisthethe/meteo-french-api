@@ -1,0 +1,159 @@
+components:
+  schemas:
+    ApiInfoResponse:
+      properties:
+        name:
+          description: The name of the API.
+          example: apiname
+          title: Name
+          type: string
+        version:
+          description: The version of the API.
+          example: 0.0.1
+          title: Version
+          type: string
+      type: object
+    PrcptResponse:
+      properties:
+        prcpt:
+          description: Amount of prcpt that has fallen in the past hour in meters.
+          example: 0.001
+          title: Prcpt
+          type: number
+        vis:
+          description: The current vis in meters.
+          example: 9700.0
+          title: Vis
+          type: number
+      type: object
+    UvResponse:
+      properties:
+        uvidx:
+          description: uvidx
+          example: 1
+          title: Uvidx
+          type: integer
+      type: object
+    ValidationError:
+      properties:
+        detail:
+          properties:
+            <location>:
+              properties:
+                <field_name>:
+                  items:
+                    type: string
+                  type: array
+              type: object
+          type: object
+        message:
+          type: string
+      type: object
+info:
+  contact:
+    email: alexisthethe@gmail.com
+    name: API Support
+    url: https://alexisthethe.github.io/
+  description: A simple weather API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Meteo French API
+  version: 0.1.0
+openapi: 3.0.3
+paths:
+  /:
+    get:
+      operationId: getApiInfo
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiInfoResponse'
+          description: Successful response. API info
+      summary: Returns a json containing the generic information about the current
+        API.
+      tags:
+      - Weather
+  /prcpt:
+    get:
+      description: 'and Amount of prcpt for a specific
+
+        location defined with lt and lg.'
+      operationId: getPrcpt
+      parameters:
+      - description: The lg of the geoposition where to get weather information.
+        in: query
+        name: lg
+        required: true
+        schema:
+          example: 2.304897
+          title: Lg
+          type: number
+      - description: The lt of the geoposition where to get weather information.
+        in: query
+        name: lt
+        required: true
+        schema:
+          example: 48.870502
+          title: Lt
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PrcptResponse'
+          description: Successful response. Prcpt information
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: Validation error
+      summary: Returns a json containing the vis
+      tags:
+      - Weather
+  /uvidx:
+    get:
+      description: location defined with lt and lg.
+      operationId: getUv
+      parameters:
+      - description: The lg of the geoposition where to get weather information.
+        in: query
+        name: lg
+        required: true
+        schema:
+          example: 2.304897
+          title: Lg
+          type: number
+      - description: The lt of the geoposition where to get weather information.
+        in: query
+        name: lt
+        required: true
+        schema:
+          example: 48.870502
+          title: Lt
+          type: number
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UvResponse'
+          description: Successful response. uvidx information
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidationError'
+          description: Validation error
+      summary: Return the current uvidx for a specific
+      tags:
+      - Weather
+tags:
+- description: Endpoints for weather information requests
+  name: Weather
+
